@@ -2,6 +2,7 @@ const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
 const mssql = require('mssql');
+const cors = require('cors')
 
 const swaggerSpec = require('./swagger'); 
 const tasksRouter = require('./tasks'); 
@@ -12,6 +13,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const pool = require('./db');
+
+app.use(cors());
 
 app.use(bodyParser.json());
 
