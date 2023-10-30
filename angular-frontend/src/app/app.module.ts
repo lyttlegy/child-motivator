@@ -6,19 +6,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { PersonsComponent } from './persons/persons.component';
+import { PointAddComponent } from './point-add/point-add.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksListComponent,
-    PersonsComponent
+    PersonsComponent,
+    PointAddComponent
   ],
   imports: [
     BrowserModule,
 	HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

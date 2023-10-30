@@ -1,0 +1,80 @@
+.loader{
+  position: fixed;
+  opacity: .7;
+  background: white;
+  padding-top: 150px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index:999;
+  text-align:center;
+  vertical-align: middle;
+}
+.circle {
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-left-color: black;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  animation: spining 2s infinite linear;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.complete {
+  -webkit-animation: none;
+  animation: none;
+  border: 1px solid black;
+  transition: border 1s ease-out;
+}
+
+.keyframes(spining;{
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+});
+
+
+
+
+.checkmark {
+  display:none;
+}
+  
+.complete .checkmark{
+  display:block;
+  
+  .draw {
+	animation-name: _checkmarked;
+	animation-duration: 1s;
+	animation-timing-function: ease;
+    transform: scaleX(-1) rotate(45deg);
+    opacity: 1;
+    height: 50px;
+    width: 100px;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
+    content: '';
+    left: 50px;
+    top: 60px;
+    position: absolute;
+  }
+}
+.keyframes(_checkmarked; {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+});
+.keyframes(@name; @arguments) {
+	@-moz-keyframes @name { @arguments(); }
+	@-webkit-keyframes @name { @arguments(); }
+	@keyframes @name { @arguments(); }
+}

@@ -30,6 +30,32 @@ router.get('/', async (req, res) => {
         pool.close();
     }
 });
+/**
+ * @swagger
+ * /api/persons/children:
+ *   get:
+ *     summary: Get all persons, whom are children
+ *     description: Retrieve a list of all persons whom are children.
+ *     responses:
+ *       200:
+ *         description: List of persons retrieved successfully
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/children', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request()
+			.query('SELECT * FROM Persons where Adult <> 1;');
+        
+        res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    } finally {
+        pool.close();
+    }
+});
 
 
 /**
