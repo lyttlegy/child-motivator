@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { PersonsComponent } from './persons/persons.component';
 import { PointAddComponent } from './point-add/point-add.component';
+import { PointComponent } from './point/point.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -15,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     TasksListComponent,
     PersonsComponent,
+    PointComponent,
     PointAddComponent
   ],
   imports: [
