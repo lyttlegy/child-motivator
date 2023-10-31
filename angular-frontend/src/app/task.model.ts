@@ -1,6 +1,6 @@
 export interface Task {
     TaskID: number;
     TaskName: string;
-    Point: string;
+    Point: number;
 	Done: boolean;
 }

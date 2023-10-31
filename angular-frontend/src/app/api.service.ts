@@ -21,6 +21,9 @@ export class ApiService {
 	getTasks(): Observable<Task[]> {
 		return this.http.get<Task[]>(`${this.baseUrl}/tasks`);
 	}
+	getPoints(): Observable<Point[]> {
+		return this.http.get<Point[]>(`${this.baseUrl}/points`);
+	}
 	savePoint(point: Point): Observable<Point> {
 		return this.http.post<Point>(`${this.baseUrl}/points`, point).pipe(delay(3000));
 	}

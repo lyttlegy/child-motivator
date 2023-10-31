@@ -7,6 +7,34 @@ const router = express.Router();
 /**
  * @swagger
  * /api/points:
+ *   get:
+ *     summary: Get points
+ *     description: Retrieve points.
+ *     responses:
+ *       200:
+ *         description: Points retrieved successfully
+ *       404:
+ *         description: Points not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request()
+            .query('SELECT TaskID, PersonID, Points FROM Points;');
+        
+		res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error ' });
+    } finally {
+        pool.close();
+    }
+});
+/**
+ * @swagger
+ * /api/points:
  *   post:
  *     summary: Add points
  *     description: Add points to a person and task.
