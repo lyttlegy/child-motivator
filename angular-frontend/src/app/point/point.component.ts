@@ -31,38 +31,53 @@ export class PointComponent implements AfterViewInit{
 			let childrenR: Record<number,number> = {};
 			let childrenRP: Record<number,Person> = {};
 			
-			var first=0;
-			var second=0;
-			var third=0;
+			let first: number[] =[];
+			let second: number[] =[];
+			let third: number[] =[];
 			
-			for(var i=0; i<this.children.length;i++){
-				if (i==0) {first = this.children[i].PersonID; }
-				if (i==1) {second = this.children[i].PersonID; }
-				if (i==2) {third = this.children[i].PersonID; }
-				
+			for(let i=0; i<this.children.length;i++){
 				childrenR[this.children[i].PersonID] = 0;
 				childrenRP[this.children[i].PersonID] = this.children[i];
 			}
 
-			for(var i=0; i<this.points.length;i++){
-				var p = this.points[i];
+			for(let i=0; i<this.points.length;i++){
+				let p = this.points[i];
 				if (childrenR[p.PersonID] ==null){childrenR[p.PersonID] = 0;}
-				console.log(childrenR[p.PersonID], childrenR[p.PersonID], p.Points);
 				childrenR[p.PersonID] = childrenR[p.PersonID] + p.Points;
-				let c = childrenR[p.PersonID];
-				if (c> childrenR[first]){
-					second = first;
-					first = p.PersonID;
-				}else if (c> childrenR[second] && c < childrenR[first]){
-					third = second;
-					second = p.PersonID;
-				}else if(c > childrenR[third]&& c < childrenR[second]){
-					third = p.PersonID;
-				}
-				
 			}
 			
-			this.update(childrenRP[first], childrenRP[second],childrenRP[third]);
+			const sortedChildrenR = Object.entries(childrenR)
+			.filter((a) => a[1]>0)
+			.map((a,b,c)=> [Number(a[0]),a[1]])			
+			.sort((a,b) => a[1] > b[1] ? -1 : (a[1]<b[1] ?  1 : 0) );
+			
+			let firstNames = "";
+			let secondNames = "";
+			let thirdNames = "";
+			let k = 0;
+			for(let i=0;i<sortedChildrenR.length;i++){
+				k=i;
+				firstNames += this.beautify(childrenRP[sortedChildrenR[i][0]]) + " ";
+				if (i<sortedChildrenR.length-1 && sortedChildrenR[i] != sortedChildrenR[i+1]){
+					break;
+				}
+			}
+			for(var i=k+1;i<sortedChildrenR.length;i++){
+				k=i;
+				secondNames += this.beautify(childrenRP[sortedChildrenR[i][0]]) + " ";
+				if (i<sortedChildrenR.length-1 && sortedChildrenR[i] != sortedChildrenR[i+1]){
+					break;
+				}
+			}
+			for(var i=k+1;i<sortedChildrenR.length;i++){
+				k=i;
+				thirdNames += this.beautify(childrenRP[sortedChildrenR[i][0]]) + " ";
+				if (i<sortedChildrenR.length-1 && sortedChildrenR[i] != sortedChildrenR[i+1]){
+					break;
+				}
+			}
+			
+			this.update(firstNames.trim(), secondNames.trim(),thirdNames.trim());
 			
 		});
 		
@@ -71,7 +86,7 @@ export class PointComponent implements AfterViewInit{
 		if (child == null) { return "" ;}
 		return child.FirstName + " " + child.LastName;
 	}
-	update(first: Person,second: Person,third: Person):void{
+	update(first: string,second: string,third: string):void{
 		if(this.ctx==null){
 			return;
 		}
@@ -83,9 +98,9 @@ export class PointComponent implements AfterViewInit{
 		this.ctx.rect(25, 125, 150, 150);
 		this.ctx.rect(175, 75, 150, 200);
 		this.ctx.rect(325, 175, 150, 100);
-		this.ctx.fillText(this.beautify(second), 100, 100);
-		this.ctx.fillText(this.beautify(first), 250, 50);
-		this.ctx.fillText(this.beautify(third), 400, 150);
+		this.ctx.fillText(second, 100, 100);
+		this.ctx.fillText(first, 250, 50);
+		this.ctx.fillText(third, 400, 150);
 		this.ctx.font = "40px Arial";
 		this.ctx.fillStyle = "blue";
 		this.ctx.fillText("2", 100, 210);
